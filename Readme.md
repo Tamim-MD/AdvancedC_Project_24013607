@@ -1,12 +1,12 @@
 # Hanji — Korean Vocabulary Trainer
 
 Hanji is a small command-line program written in C for practicing Korean vocabulary.  
-It provides a simple menu to add, edit, delete, and study vocabulary pairs, and stores everything in a plain text file so your data persists between runs.
+It provides a simple menu to add, delete, and study vocabulary pairs, and stores everything in a plain text file so your data persists between runs.
 
 ---
 
 ## Features
-- Add, edit, and delete Korean ⇄ English word pairs  
+- Add, and delete Korean ⇄ English word pairs  
 - Study mode to review all saved words  
 - Automatic load/save to `data/vocabulary.txt`  
 - UTF-8 support for Hangul display on Windows  

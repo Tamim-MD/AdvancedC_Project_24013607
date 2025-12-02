@@ -1,20 +1,20 @@
 #ifndef VOCAB_H               // include guard start
 #define VOCAB_H
 
-#define MAX_WORD_LENGTH 100    // maximum size for Korean word
-#define MAX_MEANING_LENGTH 255 // maximum size for English meaning
+#define MAX_WORD_LENGTH 100           // maximum size for Korean word
+#define MAX_MEANING_LENGTH 255        // maximum size for English meaning
 #define VOCAB_FILE "data/vocabulary.txt"   // default file path
 
+// Structure for storing one vocabulary pair
 typedef struct {
     char korean[MAX_WORD_LENGTH];      // Korean word
     char english[MAX_MEANING_LENGTH];  // English meaning
 } VocabularyCard;
 
-void addVocabulary(void);                                // add new word
-void editVocabulary(int index, const char *korean, const char *english); // edit existing entry
-void deleteVocabulary(int index);                        // delete a word
-void studyVocabulary(void);                              // study mode
-void loadVocabularyFromFile(const char *filename);       // load data from file
-void saveVocabularyToFile(const char *filename);         // save data to file
+void addVocabulary(void);                      // add new word (user input)
+void deleteVocabulary(int index);              // delete a word by index
+void studyVocabulary(void);                    // study mode
+void loadVocabularyFromFile(const char *filename);   // load data from file
+void saveVocabularyToFile(const char *filename);     // save data to file
 
 #endif // VOCAB_H            // include guard end

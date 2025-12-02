@@ -1,43 +1,54 @@
 #include <stdio.h>                 // for printf, scanf
 #include <stdlib.h>                // for exit()
-#include "vocab.h"                 // header for vocabulary functions
+#include "vocab.h"                 // vocabulary function declarations
 
-// Show menu options to the user
+// Show menu options
 void display_menu() {
     printf("=== Hanji: Korean Vocabulary Trainer ===\n");
     printf("1. Add Vocabulary\n");
     printf("2. Study Vocabulary\n");
-    printf("3. Exit\n");
+    printf("3. Delete Vocabulary\n");
+    printf("4. Exit\n");
     printf("Select an option: ");
 }
 
 int main() {
-    int choice;                    // stores user menu choice
+    int choice;                    // menu choice
+    int index;                     // index for delete
 
-    loadVocabularyFromFile(VOCAB_FILE);   // load saved vocabulary
+    loadVocabularyFromFile(VOCAB_FILE);   // load stored words
 
-    while (1) {                    // main program loop
-        display_menu();            // show menu
-        scanf("%d", &choice);      // read user choice
+    while (1) {
+        display_menu();
+        scanf("%d", &choice);
 
-        switch (choice) {          // handle selected option
+        switch (choice) {
             case 1:
-                addVocabulary();                           // add new word
-                saveVocabularyToFile(VOCAB_FILE);          // save after adding
+                addVocabulary();                          // add new word
+                saveVocabularyToFile(VOCAB_FILE);         // save changes
                 break;
 
             case 2:
-                studyVocabulary();                         // show study list
+                studyVocabulary();                        // review all words
                 break;
 
             case 3:
+                printf("Enter index to delete: ");
+                scanf("%d", &index);
+                index--;                                   // convert 1-based to 0-based
+                deleteVocabulary(index);                   // delete entry
+                saveVocabularyToFile(VOCAB_FILE);          // save changes
+                break;
+
+            case 4:
                 printf("Exiting the application.\n");
-                exit(0);                                   // terminate program
+                saveVocabularyToFile(VOCAB_FILE);          // final save
+                exit(0);
 
             default:
-                printf("Invalid option. Please try again.\n"); // wrong input
+                printf("Invalid option. Please try again.\n");
         }
     }
 
-    return 0;                      // not reached (exit() used)
+    return 0;
 }

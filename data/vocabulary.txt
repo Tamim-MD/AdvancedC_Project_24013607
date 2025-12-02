@@ -5,7 +5,6 @@ orange,오렌지
 peach,복숭아
 strawberry,딸기
 watermelon,수박
-kiwi,키위
 mango,망고
 pineapple,파인애플
 안녕하세요,hello

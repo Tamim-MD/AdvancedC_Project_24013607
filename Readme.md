@@ -16,7 +16,7 @@ It provides a simple menu to add, delete, and study vocabulary pairs, and stores
 
 ## Screenshot
 
-![Preview](./Screenshot%202025-12-02%20193930.png)
+![Preview](./Screenshot%202025-12-03%20013655.png)
 
 ---
 
@@ -98,7 +98,7 @@ hanji/
 
 ## License & Author
 
-**Author:** MD Tamim  
+**Author:** Tamim MD
 **Institution:** Computer Science & Engineering, Sejong University
 
 This repository is for educational and coursework purposes.

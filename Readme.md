@@ -51,8 +51,9 @@ make
 When the program runs:
 
 - **1** → Add Vocabulary  
-- **2** → Study Vocabulary  
-- **3** → Exit  
+- **2** → Study Vocabulary 
+- **3** → Delete Vocabulary 
+- **4** → Exit  
 
 All words are saved automatically to `data/vocabulary.txt`.
 
@@ -98,7 +99,8 @@ hanji/
 
 ## License & Author
 
-**Author:** Tamim MD
+**Author:** Tamim MD 
+
 **Institution:** Computer Science & Engineering, Sejong University
 
 This repository is for educational and coursework purposes.

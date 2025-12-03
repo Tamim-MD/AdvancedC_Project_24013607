@@ -13,10 +13,11 @@ void display_menu() {
 }
 
 int main() {
-    int choice;                    // menu choice
-    int index;                     // index for delete
+    int choice;        // menu choice
+    int index;         // index for delete
 
-    loadVocabularyFromFile(VOCAB_FILE);   // load stored words
+    initVocabularyStorage();                // allocate memory dynamically
+    loadVocabularyFromFile(VOCAB_FILE);     // load stored words
 
     while (1) {
         display_menu();
@@ -43,6 +44,7 @@ int main() {
             case 4:
                 printf("Exiting the application.\n");
                 saveVocabularyToFile(VOCAB_FILE);          // final save
+                freeVocabularyStorage();                   // free DMA before exit
                 exit(0);
 
             default:
@@ -50,5 +52,6 @@ int main() {
         }
     }
 
+    freeVocabularyStorage();
     return 0;
 }

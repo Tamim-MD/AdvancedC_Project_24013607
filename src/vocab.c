@@ -1,5 +1,5 @@
 #include <stdio.h>                      // file I/O
-#include <stdlib.h>                     // general utilities
+#include <stdlib.h>                     // general utilities, malloc/free
 #include <string.h>                     // string functions
 #include "vocab.h"                      // header for vocabulary functions
 
@@ -11,22 +11,45 @@ typedef struct {
     char meaning[MAX_MEANING_LENGTH];   // English meaning
 } InternalCard;
 
-static InternalCard vocabulary[MAX_VOCABULARY_SIZE];   // stored vocab list
-static int vocabulary_count = 0;                       // how many words stored
+static InternalCard *vocabulary = NULL; // dynamic array pointer
+static int vocabulary_count = 0;        // how many words stored
+
+
+// ----------------------------
+// Initialize dynamic storage
+// ----------------------------
+void initVocabularyStorage(void) {
+    vocabulary = malloc(sizeof(InternalCard) * MAX_VOCABULARY_SIZE); // allocate array
+    if (vocabulary == NULL) {
+        fprintf(stderr, "Memory allocation failed.\n");
+        exit(1);                               // stop if we cannot allocate
+    }
+    vocabulary_count = 0;                      // start with zero entries
+}
+
+
+// ----------------------------
+// Free dynamic storage
+// ----------------------------
+void freeVocabularyStorage(void) {
+    free(vocabulary);                          // release allocated memory
+    vocabulary = NULL;
+    vocabulary_count = 0;
+}
 
 
 // ----------------------------
 // Load vocabulary from file
 // ----------------------------
 void load_vocabulary(const char *filename) {
-    FILE *file = fopen(filename, "r");                 // open file in read mode
-    if (file == NULL) return;                          // if file doesn't exist, skip
+    FILE *file = fopen(filename, "r");         // open file in read mode
+    if (file == NULL) return;                  // if file doesn't exist, skip
 
     while (vocabulary_count < MAX_VOCABULARY_SIZE &&
            fscanf(file, "%99[^,],%254[^\n]\n",
                   vocabulary[vocabulary_count].word,
                   vocabulary[vocabulary_count].meaning) == 2) {
-        vocabulary_count++;                            // count every loaded entry
+        vocabulary_count++;                    // count every loaded entry
     }
 
     fclose(file);
@@ -37,7 +60,7 @@ void load_vocabulary(const char *filename) {
 // Save vocabulary to file
 // ----------------------------
 void save_vocabulary(const char *filename) {
-    FILE *file = fopen(filename, "w");                 // open for writing
+    FILE *file = fopen(filename, "w");         // open for writing
     if (file == NULL) {
         perror("Failed to open vocabulary file for writing");
         return;
@@ -46,7 +69,7 @@ void save_vocabulary(const char *filename) {
     for (int i = 0; i < vocabulary_count; i++) {
         fprintf(file, "%s,%s\n",
                 vocabulary[i].word,
-                vocabulary[i].meaning);                // save each entry
+                vocabulary[i].meaning);        // save each entry
     }
 
     fclose(file);
@@ -64,7 +87,7 @@ void add_word(const char *word, const char *meaning) {
         strncpy(vocabulary[vocabulary_count].meaning, meaning, MAX_MEANING_LENGTH - 1);
         vocabulary[vocabulary_count].meaning[MAX_MEANING_LENGTH - 1] = '\0';
 
-        vocabulary_count++;                            // increase count
+        vocabulary_count++;                    // increase count
     } else {
         printf("Vocabulary limit reached.\n");
     }
@@ -138,8 +161,8 @@ void deleteVocabulary(int index) {
     }
 
     for (int j = index; j < vocabulary_count - 1; j++) {
-        vocabulary[j] = vocabulary[j + 1];              // shift entries left
+        vocabulary[j] = vocabulary[j + 1];      // shift entries left
     }
 
-    vocabulary_count--;                                 // reduce count
+    vocabulary_count--;                         // reduce count
 }

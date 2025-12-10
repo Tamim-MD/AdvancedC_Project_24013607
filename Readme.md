@@ -94,6 +94,7 @@ hanji/
 - Modular programming using header files and separate compilation
 - String manipulation with `fgets`, `strncpy`, `strcmp`, etc.
 - Input sanitization and buffer handling
+- Dynamic memory allocation for allocating memory
 
 ---
 
